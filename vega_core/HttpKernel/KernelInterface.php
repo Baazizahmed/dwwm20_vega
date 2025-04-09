@@ -7,19 +7,18 @@ use Symfony\Component\HttpFoundation\Response;
 
 interface KernelInterface
 {
-    
+
     /**
      * Initialiser le noyau.
      *
      * @todo Ses rôles:
-     *      - Désactiver les messages d'erreurs
+     *      - Désactiver les messages d'erreurs en production
      *      - Activer le déboggeur
      *      - Charger le conteneur de dépendances
-     * 
+     *
      * @return void
      */
     public function boot(): void;
-
 
     /**
      * Charger le conteneur de dépendances.
@@ -28,16 +27,14 @@ interface KernelInterface
      */
     public function loadContainer(): ContainerInterface;
 
-
     /**
-     * Soumettre la requête de la part contrôleur frontal pour traitement 
+     * Soumettre la requête de la part contrôleur frontal pour traitement
      * et lui retourne la réponse correspondante
      *
      * @param Request $request
      * @return Response
      */
     public function handle(Request $request): Response;
-
 
     /**
      * Retourne l'environnement de développement de l'application.
@@ -46,15 +43,12 @@ interface KernelInterface
      */
     public function getEnvironment(): string;
 
-
-
     /**
      * Permet de savoir si le mode béboggage est activé ou non.
      *
      * @return boolean
      */
     public function isDebug(): bool;
-
 
     /**
      * Retourne le contenu d'une resource appartenant au noyau.
@@ -63,7 +57,6 @@ interface KernelInterface
      * @return string
      */
     public function loadResource(string $resourceName): string;
-
 
     /**
      * Termine la requête du client.

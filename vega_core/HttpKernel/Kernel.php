@@ -3,10 +3,11 @@ namespace VegaCore\HttpKernel;
 
 use DI\ContainerBuilder;
 use Psr\Container\ContainerInterface;
+use VegaCore\HttpKernel\KernelInterface;
 use Symfony\Component\ErrorHandler\Debug;
+use VegaCore\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use VegaCore\HttpKernel\KernelInterface;
 
 abstract class Kernel implements KernelInterface
 {
@@ -95,7 +96,11 @@ abstract class Kernel implements KernelInterface
     {
         $this->boot();
 
-        return new Response("hello,wordl");
+       return $this->container->get(HttpKernelInterface::class)->handle($request);
+
+        
+
+        // return new Response("hello,world!");
     }
 
     /**
@@ -105,7 +110,7 @@ abstract class Kernel implements KernelInterface
      */
     public function getEnvironment(): string
     {
-
+        return $this->environment;
     }
 
     /**
@@ -115,7 +120,7 @@ abstract class Kernel implements KernelInterface
      */
     public function isDebug(): bool
     {
-
+        return $this->debug;
     }
 
     /**
@@ -138,6 +143,6 @@ abstract class Kernel implements KernelInterface
      */
     public function terminate(Request $request, Response $response): void
     {
-
+        
     }
 }
